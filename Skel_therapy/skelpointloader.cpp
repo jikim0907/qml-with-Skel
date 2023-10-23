@@ -1,18 +1,19 @@
 #include "skelpointloader.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <map>
 
-SkelPointLoader::SkelPointLoader()
+SkelPointLoader* SkelPointLoader::mInstance = NULL;
+
+SkelPointLoader::SkelPointLoader(QObject *parent):
+    QObject(parent)
 {
-    loadNSaveSkel();
+    mInstance = this;
 }
 
-SkelPointLoader::~SkelPointLoader()
+SkelPointLoader::~SkelPointLoader(){
+}
+
+SkelPointLoader *SkelPointLoader::getInstance()
 {
+    return mInstance;
 }
 
 int SkelPointLoader::loadNSaveSkel(){
@@ -55,8 +56,11 @@ void SkelPointLoader::pullSkelPt(std::string key){
         for (const std::vector<double>& row : vec) {
             key_px = row[0];
             key_py = row[1];
+            emit send_pos_data(key_px,key_py);
         }
-    } else {
+    }
+
+    else {
         std::cout << "Key not found: " << key << std::endl;
     }
 }
