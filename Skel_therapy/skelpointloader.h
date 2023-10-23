@@ -8,8 +8,11 @@ class SkelPointLoader
 public:
     SkelPointLoader();
     ~SkelPointLoader();
-//    int *loadSkel();
-    void loadSkel();
+    int loadNSaveSkel();
+    void pullSkelPt(std::string key);
+    double key_px , key_py ;
+    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+
 };
 
 #endif // SKELPOINTLOADER_H

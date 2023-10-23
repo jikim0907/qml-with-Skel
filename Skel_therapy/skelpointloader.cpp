@@ -2,34 +2,76 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <vector>
+#include <map>
 
 SkelPointLoader::SkelPointLoader()
 {
-    loadSkel();
+    loadNSaveSkel();
 }
 
 SkelPointLoader::~SkelPointLoader()
 {
 }
 
-void SkelPointLoader::loadSkel(){
+int SkelPointLoader::loadNSaveSkel(){
 
-//    int static skelPointArr[] ={};
-    std::fstream fs;
+    std::ifstream file("C:/Users/User/Downloads/SkelData4.csv"); // 파일을 읽기 모드로 열기
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open data.csv" << std::endl;
+        return 1;
+    }
+
     std::string line;
-    fs.open("C:/Users/User/Downloads/SkelData3.csv",std::ios::in); //파일을 읽기 전용으로 open
-    if (!fs.is_open()) {
-        std::cerr << "Failed to open SkelData.csv" << std::endl;
-        return;
+    std::vector<double> row;
+
+    while (std::getline(file, line)) {
+        std::cout<<"line: "<<line<<std::endl;
+        std::istringstream str_line(line);
+        std::string token;
+        int i = 0;
+
+        row.clear();
+
+        while(std::getline(str_line, token, ',')){
+            std::istringstream via_str(token);
+            double pos_y, pos_x;
+            via_str >> pos_y >> pos_x;
+            row.push_back(pos_x);
+            row.push_back(pos_y);
+
+            i++;
+            switch(i){
+                case 1:
+                SkelPtMap["left_shoulder"].push_back(row);
+                    break;
+                case 2:
+                    SkelPtMap["left_elbow"].push_back(row);
+                    break;
+                case 3:
+                    SkelPtMap["left_wrist"].push_back(row);
+                    i = 0;
+                    break;
+            }
+        }
     }
-    while(!fs.eof()) //파일 끝에 도달할 때 까지 반복
-    {
-        getline(fs,line);
-        std::cout << line << std::endl;
+//    pullSkelPt("left_shoulder");
+}
 
+void SkelPointLoader::pullSkelPt(std::string key){
 
+    if (SkelPtMap.find(key) != SkelPtMap.end()) {
+        std::vector<std::vector<double>>& vec = SkelPtMap[key];
+        std::cout << "Contents of SkelPtMap["<< key << "] " << std::endl;
+
+        for (const std::vector<double>& row : vec) {
+            key_px = row[0];
+            key_py = row[1];
+        }
+
+    } else {
+        std::cout << "Key not found: " << key << std::endl;
     }
-
-
-//    return skelPointArr;
 }
