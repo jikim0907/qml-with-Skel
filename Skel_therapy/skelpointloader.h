@@ -8,21 +8,22 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <QThread>
 
-class skelpointloader : public QObject {
+class SkelPointLoader : public QObject {
     Q_OBJECT
 
 
 public:
-    skelpointloader(QObject *parent = 0);
+    SkelPointLoader(QObject *parent = 0);
 //    ~skelpointloader();
-    static skelpointloader *getInstance();
-    static skelpointloader *mInstance;
+    static SkelPointLoader *getInstance();
+    static SkelPointLoader *mInstance;
 
     int loadNSaveSkel();
 
     int key_idx = 0;
-    void pullSkelPt(std::string key);
+
     std::string line;
     std::vector<double> row;
     std::string token;
@@ -30,8 +31,11 @@ public:
     double pos_y, pos_x;
     double key_px , key_py ;
     std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+
 signals:
-    void sendPosData(double key_x, double key_y);
+    void sendPosData(double x, double y);
+public slots:
+    void pullSkelPt(std::string key);
 //    void sendposdata();
 //public slots:
 //    void updateImagePosition();

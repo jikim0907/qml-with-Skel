@@ -1,21 +1,32 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
+#include <QQmlContext>
+#include <QQuickView>
 #include "skelpointloader.h"
 #include <QDebug>
 
-static QObject *UserInstance(QQmlEngine *, QJSEngine *);
+
+
+static QObject *UserInstance(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+    Q_UNUSED(engine)
+    Q_UNUSED(scriptEngine)
+
+    SkelPointLoader *m_skelpointloader = SkelPointLoader::getInstance();
+    return m_skelpointloader ;
+}
 
 
 int main(int argc, char *argv[])
 {
-//    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
-    skelpointloader *m_skelpointloader = new skelpointloader();
     QQmlApplicationEngine engine;
 
-    qmlRegisterSingletonType<skelpointloader>("skelpointloader", 1, 0, "SPK", UserInstance);
-    m_skelpointloader->loadNSaveSkel();
+    SkelPointLoader *skelpointloader = new SkelPointLoader;
+    qmlRegisterSingletonType<SkelPointLoader>("skelpointloader", 1, 0, "SkelPointLoader", UserInstance);
+
 
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -25,16 +36,13 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         }, Qt::QueuedConnection);
     engine.load(url);
+    skelpointloader->loadNSaveSkel();
+    return app.exec();
+
+//    QQuickView view;
+//    view.setSource(QUrl("qrc:/main.qml"));
+//    view.show();
     return app.exec();
 }
 
-
-static QObject *UserInstance(QQmlEngine *engine, QJSEngine *scriptEngine)
-{
-    Q_UNUSED(engine)
-    Q_UNUSED(scriptEngine)
-
-    skelpointloader *m_skelpointloader = skelpointloader::getInstance();
-    return m_skelpointloader ;
-}
 

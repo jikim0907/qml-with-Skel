@@ -1,8 +1,8 @@
 #include "skelpointloader.h"
 
-skelpointloader* skelpointloader::mInstance = NULL;
+SkelPointLoader* SkelPointLoader::mInstance = NULL;
 
-skelpointloader::skelpointloader(QObject *parent):
+SkelPointLoader::SkelPointLoader(QObject *parent):
     QObject(parent)
 {
     mInstance = this;
@@ -11,19 +11,21 @@ skelpointloader::skelpointloader(QObject *parent):
 //skelpointloader::~skelpointloader(){
 //}
 
-skelpointloader *skelpointloader::getInstance()
+SkelPointLoader *SkelPointLoader::getInstance()
 {
 
     return mInstance;
 }
 
-int skelpointloader::loadNSaveSkel(){
-//    std::cout << "method loadNSaveSkel() "<<std::endl;
+int SkelPointLoader::loadNSaveSkel(){
+    std::cout << "method loadNSaveSkel() "<<std::endl;
+
     std::ifstream file("/mnt/hgfs/share/SkelData.csv"); // 파일을 읽기 모드로 열기
     if (!file.is_open()) {
         std::cerr << "Failed to open data.csv" << std::endl;
         return 1;
     }
+
     while (std::getline(file, line)) {
         std::istringstream str_line(line);
         row.clear();
@@ -51,18 +53,17 @@ int skelpointloader::loadNSaveSkel(){
     return 0;
 }
 
-void skelpointloader::pullSkelPt(std::string key){
+void SkelPointLoader::pullSkelPt(std::string key){
     if (SkelPtMap.find(key) != SkelPtMap.end()) {
         std::vector<std::vector<double>>& vec = SkelPtMap[key];
         std::cout << "Contents of SkelPtMap["<< key << "] " << std::endl;
         for (const std::vector<double>& row : vec) {
             key_px = row[0];
             key_py = row[1];
-//            std::cout << "Sd" <<std::endl;
-            emit sendPosData(key_px,key_py);
-//            emit sendposdata();
-
+            emit sendPosData(key_px*100,key_py*100);
+            QThread::msleep(100);
         }
+        std::cout<<"asd"<<std::endl;
 
     }
 
