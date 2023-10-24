@@ -9,19 +9,22 @@
 #include <vector>
 #include <map>
 #include <QThread>
+#include <QQuickItem>
+#include <QQuickPaintedItem>
+#include <QPainter>
+#include <QTimer>
 
 class SkelPointLoader : public QObject {
     Q_OBJECT
-
-
+    Q_PROPERTY(int key_px READ getKey_px NOTIFY key_pxChanged)
+    Q_PROPERTY(int key_py READ getKey_py NOTIFY key_pyChanged)
 public:
-    SkelPointLoader(QObject *parent = 0);
+    SkelPointLoader(QObject *parent = nullptr);
 //    ~skelpointloader();
     static SkelPointLoader *getInstance();
     static SkelPointLoader *mInstance;
 
     int loadNSaveSkel();
-
     int key_idx = 0;
 
     std::string line;
@@ -29,15 +32,18 @@ public:
     std::string token;
 
     double pos_y, pos_x;
-    double key_px , key_py ;
-    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+    int getKey_px() const {return m_key_px;}
+    int getKey_py() const {return m_key_py;}
 
+    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+private:
+    int m_key_px, m_key_py;
 signals:
-    void sendPosData(double x, double y);
+//    void sendPosData(double x, double y);
+    void key_pxChanged();
+    void key_pyChanged();
 public slots:
     void pullSkelPt(std::string key);
-//    void sendposdata();
-//public slots:
-//    void updateImagePosition();
+
 };
 #endif // SKELPOINTLOADER_H
