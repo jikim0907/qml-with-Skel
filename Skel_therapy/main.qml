@@ -1,9 +1,10 @@
-import QtQuick 2.12
+import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.12
 import skelpointloader 1.0
 
-Window {
+ApplicationWindow {
+
     width: 640
     height: 480
     visible: true
@@ -13,15 +14,18 @@ Window {
         id: view_control
         width: parent.width
         height: parent.height
+        Component.onCompleted: {
+        console.log("asdasd")
+        }
     }
 
     Connections {
-        target: SkelPointLoader
-        onSend_pos_data: {
-//            skel_control_img.x = x;
-//            skel_control_img.y = y;
-//            idx = i;
-            console.log("signal?")
+        target: SPK
+
+        onSendPosData:{
+
+            console.log("ddddddddddddddddd");
         }
     }
 }
+
