@@ -24,22 +24,23 @@ public:
     static SkelPointLoader *getInstance();
     static SkelPointLoader *mInstance;
 
-    int loadNSaveSkel();
+    int loadNSaveSkel(int ori_img_w, int ori_img_h);
     int key_idx = 0;
 
     std::string line;
     std::vector<double> row;
     std::string token;
-
+    int ori_img_w,ori_img_h;
     double pos_y, pos_x;
     int getKey_px() const {return m_key_px;}
     int getKey_py() const {return m_key_py;}
 
     std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+    void emitSignals();
 private:
     int m_key_px, m_key_py;
 signals:
-//    void sendPosData(double x, double y);
+    void sendPosData(double x, double y);
     void key_pxChanged();
     void key_pyChanged();
 public slots:

@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         }, Qt::QueuedConnection);
     engine.load(url);
 
-    skelpointloader->loadNSaveSkel();
+    skelpointloader->loadNSaveSkel(600,338);
     return app.exec();
 }
 
