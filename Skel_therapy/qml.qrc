@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>data/SkelData.csv</file>
+        <file>data/SkelData1.csv</file>
+        <file>data/rt_input_image.jpeg</file>
+        <file>data/animation1.gif</file>
+        <file>data/ani.mp4</file>
     </qresource>
 </RCC>

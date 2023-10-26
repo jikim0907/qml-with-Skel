@@ -8,11 +8,8 @@
 #include <sstream>
 #include <vector>
 #include <map>
-#include <QThread>
-#include <QQuickItem>
-#include <QQuickPaintedItem>
-#include <QPainter>
 #include <QTimer>
+#include <QDebug>
 
 class SkelPointLoader : public QObject {
     Q_OBJECT
@@ -20,31 +17,39 @@ class SkelPointLoader : public QObject {
     Q_PROPERTY(int key_py READ getKey_py NOTIFY key_pyChanged)
 public:
     SkelPointLoader(QObject *parent = nullptr);
-//    ~skelpointloader();
+    ~SkelPointLoader();
     static SkelPointLoader *getInstance();
     static SkelPointLoader *mInstance;
 
-    int loadNSaveSkel(int ori_img_w, int ori_img_h);
-    int key_idx = 0;
-
     std::string line;
     std::vector<double> row;
+    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
+    std::vector<std::vector<double>> vec;
     std::string token;
+
     int ori_img_w,ori_img_h;
     double pos_y, pos_x;
-    int getKey_px() const {return m_key_px;}
-    int getKey_py() const {return m_key_py;}
+    int key_idx = 0;
+    int i = 0;
 
-    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
-    void emitSignals();
+    int getKey_px() const {return spBodyPtRow_px;}
+    int getKey_py() const {return spBodyPtRow_py;}
+
+    QTimer *m_timer;
+    int loadNSaveSkel(int ori_img_w, int ori_img_h);
+    void pullSkelPt(std::string key);
+
+    Q_INVOKABLE void mth_clicked();
+
 private:
-    int m_key_px, m_key_py;
+    int spBodyPtRow_px, spBodyPtRow_py;
 signals:
     void sendPosData(double x, double y);
     void key_pxChanged();
     void key_pyChanged();
+    void sigClicked();
 public slots:
-    void pullSkelPt(std::string key);
+    void segPosChange();
 
 };
 #endif // SKELPOINTLOADER_H
