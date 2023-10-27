@@ -46,9 +46,9 @@ ApplicationWindow {
     }
     Connections{
         target: SkelPointLoader
-        onSendPosData:{
-            img.x = x
-            img.y = y
+        onChangePosSig:{
+            img.x = m_posPtStruct[0].x
+            img.y = m_posPtStruct[0].y
         }
     }
 }

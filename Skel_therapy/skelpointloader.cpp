@@ -17,67 +17,53 @@ SkelPointLoader *SkelPointLoader::getInstance()
     return mInstance;
 }
 
-int SkelPointLoader::loadNSaveSkel(int ori_img_w,int ori_img_h){
+int SkelPointLoader::loadPtData(int img_width,int img_height){
     /*it method to load data.csv file for parsing Skeleton data.
       And create SkelPtMap with Skeleton datas those are normalized */
-
+    ori_img_w = img_width; ori_img_h = img_height;
     std::cout << "method loadNSaveSkel() "<<std::endl;
-    std::ifstream file("/mnt/hgfs/share/SkelData.csv"); // 파일을 읽기 모드로 열기
-    if (!file.is_open()) {
+    posCsvData.open("/mnt/hgfs/share/SkelData.csv");
+
+    if (!posCsvData.is_open()) {
         std::cerr << "Failed to open data.csv" << std::endl;
         return 1;
     }
-    while (std::getline(file, line)) {
-        std::istringstream str_line(line);
-        while(std::getline(str_line, token, ',')){
-            row.clear();
-            std::istringstream via_str(token);
-            via_str >> pos_y >> pos_x;
-            row.push_back(pos_x*ori_img_w); row.push_back(pos_y*ori_img_h);
-
-            key_idx++;
-            switch(key_idx){
-                case 1:
-                    SkelPtMap["left_shoulder"].push_back(row);
-                    break;
-                case 2:
-                    SkelPtMap["left_elbow"].push_back(row);
-                    break;
-                case 3:
-                    SkelPtMap["left_wrist"].push_back(row);
-                    key_idx = 0;
-                    break;
-            }
-        }
-    }
-    pullSkelPt("left_wrist");
     return 0;
-}
-
-void SkelPointLoader::pullSkelPt(std::string key){
-    /* specially body points(by input parameter) data what comes from "SkelPtMap" put in "vec"*/
-    std::cout << "method pullSkelPt() : "<< key <<std::endl;
-    if (SkelPtMap.find(key) != SkelPtMap.end()) {
-        vec = SkelPtMap[key];
-    }
-    else {
-        std::cout << "Key not found: " << key << std::endl;
-    }
 }
 
 void SkelPointLoader::mth_clicked(){
     m_timer = new QTimer();
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(segPosChange()));
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(loadPositionbyTimer()));
     m_timer->start(107);
 }
 
-void SkelPointLoader::segPosChange(){
-    std::vector<double>& spBodyPtRow  = vec[i];
-    spBodyPtRow_px = spBodyPtRow[0];
-    spBodyPtRow_py = spBodyPtRow[1];
-    emit sendPosData(spBodyPtRow_px,spBodyPtRow_py);
-    i++;
-    if(vec[i] == vec.back()){
-        i = 0;
-    }
+int SkelPointLoader::loadPositionbyTimer(){
+    /*a frame data parsing and position point data streame to qml per a seccond */
+    std::getline(posCsvData, line);
+    std::istringstream str_line(line);
+    posPtStruct m_posPtStruct[3];
+
+    while(std::getline(str_line, token, ',')){
+            std::istringstream via_str(token);
+            key_idx++;
+            via_str >> m_posPtStruct[key_idx].y >> m_posPtStruct[key_idx].x;
+
+            switch(key_idx){
+                case 1:
+                    m_posPtStruct[0].x = m_posPtStruct[0].x*ori_img_w;
+                    m_posPtStruct[0].y = m_posPtStruct[0].y*ori_img_h;
+                    break;
+                case 2:
+                    m_posPtStruct[1].x = m_posPtStruct[1].x*ori_img_w;
+                    m_posPtStruct[1].y = m_posPtStruct[1].y*ori_img_h;
+                    break;
+                case 3:
+                    m_posPtStruct[2].x = m_posPtStruct[2].x*ori_img_w;
+                    m_posPtStruct[2].y = m_posPtStruct[2].y*ori_img_h;
+                    key_idx = 0;
+                    break;
+            }
+        }
+        emit changePosSig(m_posPtStruct);
+    return 0;
 }

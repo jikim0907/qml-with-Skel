@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 
     SkelPointLoader *skelpointloader = new SkelPointLoader();
     qmlRegisterSingletonType<SkelPointLoader>("skelpointloader", 1, 0, "SkelPointLoader", UserInstance);
+    skelpointloader->loadPtData(600,338);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -29,7 +30,7 @@ int main(int argc, char *argv[])
         }, Qt::QueuedConnection);
     engine.load(url);
 
-    skelpointloader->loadNSaveSkel(600,338);
+
     return app.exec();
 }
 
