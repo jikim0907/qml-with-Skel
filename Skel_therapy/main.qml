@@ -40,132 +40,132 @@ ApplicationWindow {
 
     Image{
         id: headimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lsimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rsimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: leimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: reimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
 
     Image{
         id: lwimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rwimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lhimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rhimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lkimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rkimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: laimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: raimg
-        width:10
-        height:10
+        width:20
+        height:20
         x:0
         y:0
-        source:"qrc:/data/rt_input_image.jpeg"
+        source:"qrc:/data/1.JPG"
 //        visible: false
     }
 

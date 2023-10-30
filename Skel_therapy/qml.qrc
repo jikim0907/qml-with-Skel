@@ -6,5 +6,6 @@
         <file>data/rt_input_image.jpeg</file>
         <file>data/animation1.gif</file>
         <file>data/ani.mp4</file>
+        <file>data/1.JPG</file>
     </qresource>
 </RCC>
