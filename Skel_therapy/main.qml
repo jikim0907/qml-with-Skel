@@ -20,6 +20,8 @@ ApplicationWindow {
                if (status === MediaPlayer.EndOfMedia) {
                    mediaPlayer.stop(); // 동영상 재생 중지
                    mediaPlayer.play(); // 다시 재생
+
+
                 }
             }
         }
@@ -30,25 +32,197 @@ ApplicationWindow {
             fillMode: VideoOutput.Stretch
 
             Component.onCompleted: {
-               img.visible = true;
+//               headimg.visible = true;
                SkelPointLoader.mth_clicked();
             }
         }
     }
+
     Image{
-        id: img
+        id: headimg
         width:10
         height:10
-        x:362
-        y:80
+        x:0
+        y:0
         source:"qrc:/data/rt_input_image.jpeg"
-        visible: false
+//        visible: false
     }
+
+    Image{
+        id: lsimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: rsimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: leimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: reimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+
+    Image{
+        id: lwimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: rwimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: lhimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: rhimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: lkimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: rkimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: laimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+    Image{
+        id: raimg
+        width:10
+        height:10
+        x:0
+        y:0
+        source:"qrc:/data/rt_input_image.jpeg"
+//        visible: false
+    }
+
+
     Connections{
         target: SkelPointLoader
-        onChangePosSig:{
-            img.x = m_posPtStruct[0].x
-            img.y = m_posPtStruct[0].y
+        onHeadPosition:{
+            headimg.x = x
+            headimg.y = y
+        }
+        onLeftShoulderPosition:{
+            lsimg.x = x
+            lsimg.y = y
+        }
+        onRightShoulderPosition:{
+            reimg.x = x
+            reimg.y = y
+        }
+        onLeftElbowPosition:{
+            leimg.x = x
+            leimg.y = y
+        }
+        onRightElbowPosition:{
+            reimg.x = x
+            reimg.y = y
+        }
+        onLeftWristPosition:{
+            lwimg.x = x
+            lwimg.y = y
+        }
+        onRightWristPosition:{
+            rwimg.x = x
+            rwimg.y = y
+        }
+        onLeftHipPosition:{
+            lhimg.x = x
+            lhimg.y = y
+        }
+        onRightHipPosition:{
+            rhimg.x = x
+            rhimg.y = y
+        }
+        onLeftKneePosition:{
+            lkimg.x = x
+            lkimg.y = y
+        }
+        onRightKneePosition:{
+            rkimg.x = x
+            rkimg.y = y
+        }
+        onLeftAnklePosition:{
+            laimg.x = x
+            laimg.y = y
+        }
+        onRightAnklePosition:{
+            raimg.x = x
+            raimg.y = y
         }
     }
 }

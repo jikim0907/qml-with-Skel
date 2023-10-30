@@ -30,34 +30,36 @@ public:
     std::string line;
     std::vector<double> row;
     std::ifstream posCsvData; //it'll may delete later... if position data streams come in real time
-    std::map<std::string, std::vector<std::vector<double>>> SkelPtMap;
-//    std::vector<std::vector<double>> vec;
     std::string token;
 
     int ori_img_w,ori_img_h;
-//    double pos_y, pos_x;
-    int key_idx = 0;
-//    int i = 0;
-
-//    int getKey_px() const {return spBodyPtRow_px;}
-//    int getKey_py() const {return spBodyPtRow_py;}
-
+    int body_idx = 0;
     QTimer *m_timer;
     int loadPtData(int img_width, int img_height);
-//    void pullSkelPt(std::string key);
-
     Q_INVOKABLE void mth_clicked();
-
-private:
-//    int spBodyPtRow_px, spBodyPtRow_py;
 signals:
-//    void sendPosData(double x, double y);
-//    void key_pxChanged();
-//    void key_pyChanged();
-//    void sigClicked();
-    void changePosSig(struct posPtStruct m_struct);
+//    void changePosSig(int x, int y);
+    void headPosition(int x, int y);
+
+    void leftShoulderPosition(int x, int y);
+    void rightShoulderPosition(int x, int y);
+
+    void leftElbowPosition(int x, int y);
+    void rightElbowPosition(int x, int y);
+
+    void leftWristPosition(int x, int y);
+    void rightWristPosition(int x, int y);
+
+    void leftHipPosition(int x, int y);
+    void rightHipPosition(int x, int y);
+
+    void leftKneePosition(int x, int y);
+    void rightKneePosition(int x, int y);
+
+    void leftAnklePosition(int x, int y);
+    void rightAnklePosition(int x, int y);
+
 public slots:
-//    void segPosChange();
     int loadPositionbyTimer();
 
 };

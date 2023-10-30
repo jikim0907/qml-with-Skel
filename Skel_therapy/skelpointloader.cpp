@@ -41,29 +41,42 @@ int SkelPointLoader::loadPositionbyTimer(){
     /*a frame data parsing and position point data streame to qml per a seccond */
     std::getline(posCsvData, line);
     std::istringstream str_line(line);
-    posPtStruct m_posPtStruct[3];
+    struct posPtStruct m_posPtStruct[13];
 
     while(std::getline(str_line, token, ',')){
             std::istringstream via_str(token);
-            key_idx++;
-            via_str >> m_posPtStruct[key_idx].y >> m_posPtStruct[key_idx].x;
+            via_str >> m_posPtStruct[body_idx].y >> m_posPtStruct[body_idx].x;
 
-            switch(key_idx){
-                case 1:
-                    m_posPtStruct[0].x = m_posPtStruct[0].x*ori_img_w;
-                    m_posPtStruct[0].y = m_posPtStruct[0].y*ori_img_h;
-                    break;
-                case 2:
-                    m_posPtStruct[1].x = m_posPtStruct[1].x*ori_img_w;
-                    m_posPtStruct[1].y = m_posPtStruct[1].y*ori_img_h;
-                    break;
-                case 3:
-                    m_posPtStruct[2].x = m_posPtStruct[2].x*ori_img_w;
-                    m_posPtStruct[2].y = m_posPtStruct[2].y*ori_img_h;
-                    key_idx = 0;
-                    break;
+            //normalization
+            m_posPtStruct[body_idx].x = m_posPtStruct[body_idx].x*ori_img_w;
+            m_posPtStruct[body_idx].y = m_posPtStruct[body_idx].y*ori_img_h;
+
+            body_idx++;
+
+            if(body_idx == sizeof(m_posPtStruct)/sizeof(*m_posPtStruct)){
+                body_idx = 0;
             }
         }
-        emit changePosSig(m_posPtStruct);
+
+    emit headPosition(m_posPtStruct[0].x, m_posPtStruct[0].y);
+
+    emit leftShoulderPosition(m_posPtStruct[1].x, m_posPtStruct[1].y);
+    emit rightShoulderPosition(m_posPtStruct[2].x, m_posPtStruct[2].y);
+
+    emit leftElbowPosition(m_posPtStruct[3].x, m_posPtStruct[3].y);
+    emit rightElbowPosition(m_posPtStruct[4].x, m_posPtStruct[4].y);
+
+    emit leftWristPosition(m_posPtStruct[5].x, m_posPtStruct[5].y);
+    emit rightWristPosition(m_posPtStruct[6].x, m_posPtStruct[6].y);
+
+    emit leftHipPosition(m_posPtStruct[7].x, m_posPtStruct[7].y);
+    emit rightHipPosition(m_posPtStruct[8].x, m_posPtStruct[8].y);
+
+    emit leftKneePosition(m_posPtStruct[9].x, m_posPtStruct[9].y);
+    emit rightKneePosition(m_posPtStruct[10].x, m_posPtStruct[10].y);
+
+    emit leftAnklePosition(m_posPtStruct[11].x, m_posPtStruct[11].y);
+    emit rightAnklePosition(m_posPtStruct[12].x, m_posPtStruct[12].y);
+
     return 0;
 }
