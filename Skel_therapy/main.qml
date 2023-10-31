@@ -5,10 +5,11 @@ import skelpointloader 1.0
 import QtMultimedia 5.12
 
 ApplicationWindow {
-    width: 600
-    height: 338
+    width: 1080
+    height: 960
     visible: true
     title: qsTr("Hello World")
+    color:"black"
     Item {
        id: mediaplay_contorl
        anchors.fill: parent
@@ -16,12 +17,11 @@ ApplicationWindow {
            id: mediaPlayer
            source: "qrc:/data/ani.mp4"
            autoPlay: true // 자동 재생 설정
+
            onStatusChanged: {
                if (status === MediaPlayer.EndOfMedia) {
                    mediaPlayer.stop(); // 동영상 재생 중지
                    mediaPlayer.play(); // 다시 재생
-
-
                 }
             }
         }
@@ -30,9 +30,9 @@ ApplicationWindow {
             anchors.fill: parent
             source: mediaPlayer
             fillMode: VideoOutput.Stretch
+            visible: false
 
             Component.onCompleted: {
-//               headimg.visible = true;
                SkelPointLoader.mth_clicked();
             }
         }
@@ -40,50 +40,40 @@ ApplicationWindow {
 
     Image{
         id: headimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lsimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rsimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: leimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: reimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
@@ -91,80 +81,75 @@ ApplicationWindow {
 
     Image{
         id: lwimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rwimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lhimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rhimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: lkimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: rkimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: laimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
 
     Image{
         id: raimg
-        width:20
-        height:20
-        x:0
-        y:0
+        width:70
+        height:60
+        source:"qrc:/data/1.JPG"
+//        visible: false
+    }
+
+    Image{
+        id: bulkimg
+        x:headimg.x
+        y:headimg.y + 60
+        z:-1
+        width: lsimg.x-rsimg.x+10
+        height: lhimg.y -lsimg.y+10
         source:"qrc:/data/1.JPG"
 //        visible: false
     }
@@ -179,26 +164,32 @@ ApplicationWindow {
         onLeftShoulderPosition:{
             lsimg.x = x
             lsimg.y = y
+            lsimg.rotation = rot
         }
         onRightShoulderPosition:{
-            reimg.x = x
-            reimg.y = y
+            rsimg.x = x
+            rsimg.y = y
+            rsimg.rotation = rot
         }
         onLeftElbowPosition:{
             leimg.x = x
             leimg.y = y
+            leimg.rotation = rot
         }
         onRightElbowPosition:{
             reimg.x = x
             reimg.y = y
+            reimg.rotation = rot
         }
         onLeftWristPosition:{
             lwimg.x = x
             lwimg.y = y
+            lwimg.rotation = rot
         }
         onRightWristPosition:{
             rwimg.x = x
             rwimg.y = y
+            rwimg.rotation = rot
         }
         onLeftHipPosition:{
             lhimg.x = x

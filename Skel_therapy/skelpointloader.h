@@ -37,18 +37,21 @@ public:
     QTimer *m_timer;
     int loadPtData(int img_width, int img_height);
     Q_INVOKABLE void mth_clicked();
+int idx = 0;
+    double calSlope(double x1, double y1, double x2, double y2);
+
 signals:
 //    void changePosSig(int x, int y);
     void headPosition(int x, int y);
 
-    void leftShoulderPosition(int x, int y);
-    void rightShoulderPosition(int x, int y);
+    void leftShoulderPosition(int x, int y,double rot);
+    void rightShoulderPosition(int x, int y, double rot);
 
-    void leftElbowPosition(int x, int y);
-    void rightElbowPosition(int x, int y);
+    void leftElbowPosition(int x, int y,double rot);
+    void rightElbowPosition(int x, int y,double rot);
 
-    void leftWristPosition(int x, int y);
-    void rightWristPosition(int x, int y);
+    void leftWristPosition(int x, int y,double rot);
+    void rightWristPosition(int x, int y,double rot);
 
     void leftHipPosition(int x, int y);
     void rightHipPosition(int x, int y);
