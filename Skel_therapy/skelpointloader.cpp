@@ -22,7 +22,7 @@ int SkelPointLoader::loadPtData(int img_width,int img_height){
 
     ori_img_w = img_width; ori_img_h = img_height;
     std::cout << "method loadNSaveSkel() "<<std::endl;
-    posCsvData.open("/mnt/hgfs/share/SkelData.csv");
+    posCsvData.open("/mnt/hgfs/share/TEST_SkelData2.csv");
 
     if (!posCsvData.is_open()) {
         std::cerr << "Failed to open data.csv" << std::endl;
@@ -63,12 +63,15 @@ int SkelPointLoader::loadPositionbyTimer(){
                 body_idx = 0;
             }
         }
+
+    std::string idx = std::to_string(i);
+    formattedIdx = QString(3 - idx.length(), '0') + QString::fromStdString(idx);
+
     double upperArmSlope_R = calSlope(m_posPtStruct[2].x,m_posPtStruct[2].y,m_posPtStruct[4].x,m_posPtStruct[4].y)*(-1);
     double foreArmSlope_R = calSlope(m_posPtStruct[4].x,m_posPtStruct[4].y,m_posPtStruct[6].x,m_posPtStruct[6].y)*(-1);
 
     double upperArmSlope_L = calSlope(m_posPtStruct[1].x,m_posPtStruct[1].y,m_posPtStruct[3].x,m_posPtStruct[3].y)*(-1);
     double foreArmSlope_L = calSlope(m_posPtStruct[3].x,m_posPtStruct[3].y,m_posPtStruct[5].x,m_posPtStruct[5].y)*(-1);
-
     emit headPosition(m_posPtStruct[0].x, m_posPtStruct[0].y);
     emit leftShoulderPosition(m_posPtStruct[1].x, m_posPtStruct[1].y,upperArmSlope_L);
     emit rightShoulderPosition(m_posPtStruct[2].x, m_posPtStruct[2].y,upperArmSlope_R);
@@ -82,6 +85,7 @@ int SkelPointLoader::loadPositionbyTimer(){
     emit rightKneePosition(m_posPtStruct[10].x, m_posPtStruct[10].y);
     emit leftAnklePosition(m_posPtStruct[11].x, m_posPtStruct[11].y);
     emit rightAnklePosition(m_posPtStruct[12].x, m_posPtStruct[12].y);
-
+    i++;
+    if(i==300){i=0;}
     return 0;
 }
