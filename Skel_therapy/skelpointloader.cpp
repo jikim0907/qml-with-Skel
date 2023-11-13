@@ -64,8 +64,8 @@ int SkelPointLoader::loadPositionbyTimer(){
             }
         }
 
-    std::string idx = std::to_string(i);
-    formattedIdx = QString(3 - idx.length(), '0') + QString::fromStdString(idx);
+//    std::string idx = std::to_string(i);
+//    formattedIdx = QString(3 - idx.length(), '0') + QString::fromStdString(idx);
 
     double upperArmSlope_R = calSlope(m_posPtStruct[2].x,m_posPtStruct[2].y,m_posPtStruct[4].x,m_posPtStruct[4].y)*(-1);
     double foreArmSlope_R = calSlope(m_posPtStruct[4].x,m_posPtStruct[4].y,m_posPtStruct[6].x,m_posPtStruct[6].y)*(-1);

@@ -19,7 +19,7 @@ struct posPtStruct{
 
 class SkelPointLoader : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QString formattedIdx READ getformattedIdx)
+//    Q_PROPERTY(QString formattedIdx READ getformattedIdx)
 
 public:
     SkelPointLoader(QObject *parent = nullptr);
@@ -34,15 +34,15 @@ public:
 
     int ori_img_w,ori_img_h;
     int body_idx = 0;
-    int i=0;
+//    int i=0;
     QTimer *m_timer;
     int loadPtData(int img_width, int img_height);
     Q_INVOKABLE void mth_clicked();
 
     double calSlope(double x1, double y1, double x2, double y2);
 
-    QString formattedIdx;
-    QString getformattedIdx() const{ return formattedIdx; }
+//    QString formattedIdx;
+//    QString getformattedIdx() const{ return formattedIdx; }
 
 signals:
 //    void changePosSig(int x, int y);
